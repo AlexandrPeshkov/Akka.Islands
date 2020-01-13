@@ -3,7 +3,7 @@ using System;
 
 namespace IslandGenetic.Operators
 {
-    public abstract class MutationOperator<TChromosome> : IMutationOperator<TChromosome>
+    public abstract class MutationOperator : IMutationOperator
     {
         protected readonly Random Random;
 
@@ -12,6 +12,6 @@ namespace IslandGenetic.Operators
             Random = new Random();
         }
 
-        public abstract IChromosome<TChromosome> Mutate(IChromosome<TChromosome> chromosome);
+        public abstract IIndividual Mutate(IIndividual individual);
     }
 }

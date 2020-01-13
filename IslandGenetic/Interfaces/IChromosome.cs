@@ -1,11 +1,12 @@
-﻿namespace IslandGenetic.Interfaces
+﻿using System.Collections.Generic;
+
+namespace IslandGenetic.Interfaces
 {
     /// <summary>
     /// Хромосома
     /// </summary>
-    /// <typeparam name="TValue"></typeparam>
-    public interface IChromosome<TValue>
+    public interface IChromosome
     {
-        TValue Value { get; set; }
+        List<byte> Value { get; set; }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace IslandGenetic.Interfaces
 {
-    public interface IIndividual<TChromosome>
+    public interface IIndividual
     {
-        public IList<IChromosome<TChromosome>> Genome { get; set; }
+        List<Chromosome> Genome { get; set; }
     }
 }

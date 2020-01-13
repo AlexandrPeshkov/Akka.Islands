@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace IslandGenetic.Operators
 {
-    internal abstract class SelectionOperator<TChromosome> : ISelectionOperator<TChromosome>
+    internal abstract class SelectionOperator : ISelectionOperator
     {
-        public abstract IEnumerable<IIndividual<TChromosome>> Select(IPopulation<TChromosome> population);
+        public abstract IEnumerable<IIndividual> Select(IPopulation population, IFitnessFunction fitnessFunction, float selectionPercent);
     }
 }

@@ -1,12 +1,20 @@
-﻿using System;
+﻿using IslandGenetic;
+using IslandGenetic.Services;
+using System;
 
 namespace Akka.Islands
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            GeneticServiceConfig config = new GeneticServiceConfig
+            {
+            };
+
+            GeneticService geneticService = new GeneticService(config);
+
+            geneticService.
         }
     }
 }

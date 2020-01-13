@@ -1,11 +1,10 @@
 ﻿using IslandGenetic.Interfaces;
+using System.Collections.Generic;
 
 namespace IslandGenetic
 {
-    internal class Chromosome : IChromosome<double>
+    public class Chromosome : IChromosome
     {
-        public double Value { get; set; }
-
-        internal Chromosome(double value) => (Value) = (value);
+        public List<byte> Value { get; set; }
     }
 }

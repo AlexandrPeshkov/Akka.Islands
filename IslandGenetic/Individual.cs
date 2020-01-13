@@ -6,8 +6,13 @@ namespace IslandGenetic
     /// <summary>
     /// Особь
     /// </summary>
-    public class Individual<TChromosome> : IIndividual<TChromosome>
+    public class Individual : IIndividual
     {
-        public IList<IChromosome<TChromosome>> Genome { get; set; }
+        public List<Chromosome> Genome { get; set; }
+
+        public Individual(List<Chromosome> genome = null)
+        {
+            Genome = genome ?? new List<Chromosome>();
+        }
     }
 }

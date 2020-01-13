@@ -5,9 +5,12 @@ namespace IslandGenetic.Interfaces
     /// <summary>
     /// Популяция
     /// </summary>
-    /// <typeparam name="TChromosome"></typeparam>
-    public interface IPopulation<TChromosome>
+    public interface IPopulation
     {
-        public IList<IIndividual<TChromosome>> Individuals { get; set; }
+        public List<Individual> Individuals { get; set; }
+
+        public Individual WorstIndividual(IPopulation population, IFitnessFunction fitnessFunction);
+
+        public Individual BestIndividual(IPopulation population, IFitnessFunction fitnessFunction);
     }
 }

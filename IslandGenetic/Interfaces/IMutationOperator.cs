@@ -4,8 +4,8 @@
     /// Оператор мутации
     /// </summary>
     /// <typeparam name="TChromosome"></typeparam>
-    public interface IMutationOperator<TChromosome>
+    public interface IMutationOperator
     {
-        public IChromosome<TChromosome> Mutate(IChromosome<TChromosome> chromosome);
+        public IIndividual Mutate(IIndividual individual);
     }
 }

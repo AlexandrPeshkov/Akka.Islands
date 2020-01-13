@@ -2,8 +2,8 @@
 
 namespace IslandGenetic.Interfaces
 {
-    public interface ISelectionOperator<TChromosome>
+    public interface ISelectionOperator
     {
-        public IEnumerable<IIndividual<TChromosome>> Select(IPopulation<TChromosome> population);
+        public IEnumerable<IIndividual> Select(IPopulation population, IFitnessFunction fitnessFunction, float selectionPercent);
     }
 }
