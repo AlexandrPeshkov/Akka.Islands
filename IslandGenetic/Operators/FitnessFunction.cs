@@ -5,7 +5,10 @@ namespace IslandGenetic
 {
     internal abstract class FitnessFunction : IFitnessFunction
     {
-        public abstract int Size { get; }
+        public abstract double MinLimit { get; }
+        public abstract double MaxLimit { get; }
+
+        public abstract bool isMaximization { get; }
 
         protected abstract Func<IIndividual, double> Function { get; }
 

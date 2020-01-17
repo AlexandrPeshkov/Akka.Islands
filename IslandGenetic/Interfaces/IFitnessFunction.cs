@@ -12,9 +12,13 @@
         /// <returns></returns>
         double Value(IIndividual individual);
 
+        double MinLimit { get; }
+
+        double MaxLimit { get; }
+
         /// <summary>
-        /// Число аргументов
+        /// Максимизация ЦФ
         /// </summary>
-        int Size { get; }
+        bool isMaximization { get; }
     }
 }

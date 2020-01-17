@@ -24,6 +24,8 @@ namespace IslandGenetic
 
         public List<Population> Populations { get; private set; }
 
+        private int CurrentStep { get; set; }
+
         public GeneticService(GeneticServiceConfig config)
         {
             Config = config;
@@ -34,7 +36,7 @@ namespace IslandGenetic
 
         #region Algorithm
 
-        private Population InitPopulation(int populationSize, int genomeSize, double minValueLimit, double maxValueLimit)
+        private Population InitPopulation(int populationSize, uint genomeSize, double minValueLimit, double maxValueLimit)
         {
             List<Individual> individuals = new List<Individual>();
 
@@ -66,12 +68,21 @@ namespace IslandGenetic
 
         public void Start()
         {
-            Population startPopulation = InitPopulation(Config.PopulationSize, Config.FitnessFunction.Size, Config.MinChromosomeValue, Config.MaxChromosomeValue);
+            CurrentStep = 0;
+            Population startPopulation = InitPopulation(Config.PopulationSize, Config.GenomeSize, Config.MinChromosomeValue, Config.MaxChromosomeValue);
 
             Populations = new List<Population>()
             {
                 startPopulation
             };
+
+            bool isValid;
+
+            //while (!isValid && )
+        }
+
+        private void NextGeneration()
+        {
         }
     }
 
