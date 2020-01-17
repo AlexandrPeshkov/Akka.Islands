@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GAF\Genetic.Core.csproj" />
+    <ProjectReference Include="..\GeneticCore\GeneticCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>

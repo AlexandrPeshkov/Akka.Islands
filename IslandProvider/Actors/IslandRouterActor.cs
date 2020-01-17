@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using GeneticCore;
 using GeneticSharp.Domain.Chromosomes;
 using IslandRouter.Messages;
 using System.Collections.Concurrent;

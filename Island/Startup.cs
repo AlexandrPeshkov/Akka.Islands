@@ -1,6 +1,7 @@
 using Akka.Actor;
 using Akka.Configuration;
-using Genetic.Core;
+using GeneticCore;
+using GeneticSharp.Domain.Randomizations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,8 @@ namespace Island
             Config akkaSystemConfig = ReadAkkaConfig();
 
             services.AddSingleton(_ => ActorSystem.Create($"Island - {Environment.MachineName} [{Guid.NewGuid()}]", akkaSystemConfig));
-            services.AddSingleton<GeneticAlgorithmCore>();
+            services.AddSingleton<GeneticCoreSerivce>();
+            services.AddSingleton<IRandomization, FastRandomRandomization>();
         }
 
         private Config ReadAkkaConfig(string configFile = "akka.conf")

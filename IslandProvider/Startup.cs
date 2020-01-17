@@ -1,5 +1,6 @@
 using Akka.Actor;
 using Akka.Configuration;
+using GeneticCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;

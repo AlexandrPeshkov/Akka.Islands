@@ -1,5 +1,4 @@
-﻿using GAF;
-using GeneticSharp.Domain.Chromosomes;
+﻿using GeneticSharp.Domain.Chromosomes;
 using System.Collections.Generic;
 
 namespace IslandRouter.Messages
