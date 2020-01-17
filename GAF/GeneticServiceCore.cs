@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Genetic.Core
 {
-    class FitnessController
+    internal class GeneticServiceCore
     {
     }
 }

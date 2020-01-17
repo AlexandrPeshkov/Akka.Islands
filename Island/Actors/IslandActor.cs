@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Island.Messages;
 
 namespace Island
 {
@@ -6,7 +7,15 @@ namespace Island
     {
         public IslandActor()
         {
-            Receive<>
+            Receive<MigrateSolutionsMessage>(OnReceiveMigrateSolutions);
+        }
+
+        /// <summary>
+        /// Принять популяцию
+        /// </summary>
+        /// <param name="message"></param>
+        private void OnReceiveMigrateSolutions(MigrateSolutionsMessage message)
+        {
         }
     }
 }
