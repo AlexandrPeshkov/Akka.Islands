@@ -20,9 +20,12 @@ namespace Island
 
             Config akkaSystemConfig = ReadAkkaConfig();
 
-            services.AddSingleton(_ => ActorSystem.Create($"Island - {Environment.MachineName} [{Guid.NewGuid()}]", akkaSystemConfig));
+            services.AddSingleton(_ => ActorSystem.Create($"Island", akkaSystemConfig));
             services.AddSingleton<GeneticCoreSerivce>();
             services.AddSingleton<IRandomization, FastRandomRandomization>();
+            services.AddSingleton(akkaSystemConfig);
+
+            services.AddSingleton<IslandService>();
         }
 
         private Config ReadAkkaConfig(string configFile = "akka.conf")
@@ -38,7 +41,7 @@ namespace Island
             return config;
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime lifetime, IslandService islandService)
         {
             if (env.IsDevelopment())
             {
@@ -50,7 +53,6 @@ namespace Island
             }
 
             app.UseHttpsRedirection();
-            app.UseMvc();
 
             lifetime.ApplicationStarted.Register(() =>
             {

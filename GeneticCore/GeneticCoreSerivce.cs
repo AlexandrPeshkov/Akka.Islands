@@ -19,14 +19,13 @@ namespace GeneticCore
 
         public GeneticAlgorithm geneticAlgorithm { get; private set; }
 
-        private readonly IRandomization randomization;
+        private readonly IRandomization _randomization;
 
         public event Action<IEnumerable<IChromosome>> MigrationReady;
 
         public GeneticCoreSerivce(IRandomization randomization)
         {
-            config = new GeneticAlgoritmConfig();
-            InitiGA(config);
+            _randomization = randomization;
         }
 
         public void InitiGA(GeneticAlgoritmConfig config)
@@ -42,21 +41,22 @@ namespace GeneticCore
 
             population.GenerationStrategy = new PerformanceGenerationStrategy();
 
-            GeneticAlgorithm ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
-            ga.Termination = termination;
+            geneticAlgorithm = new GeneticAlgorithm(population, fitness, selection, crossover, mutation)
+            {
+                Termination = termination
+            };
 
-            ga.GenerationRan += OnNewGeneration;
-
-            geneticAlgorithm = ga;
+            geneticAlgorithm.GenerationRan += OnNewGeneration;
         }
 
         private void OnNewGeneration(object sender, EventArgs e)
         {
-            if (randomization.GetFloat() <= config.MigrationProbability)
+            if (_randomization.GetFloat() <= config.MigrationProbability)
             {
                 IEnumerable<IChromosome> migration = GetPersonForMigration(config.MigrationSize);
                 MigrationReady(migration);
             }
+            Console.WriteLine($"Best chromosome {geneticAlgorithm.Fitness.Evaluate(geneticAlgorithm.BestChromosome)}");
         }
 
         /// <summary>
