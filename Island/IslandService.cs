@@ -10,7 +10,7 @@ namespace Island
 
         public IslandService(ActorSystem actorSystem, GeneticCoreSerivce geneticCoreSerivce, Config config)
         {
-            _islandActor = actorSystem.ActorOf(IslandActor.Props(config, geneticCoreSerivce));
+            _islandActor = actorSystem.ActorOf(IslandActor.Props(config, geneticCoreSerivce), "island");
         }
     }
 }

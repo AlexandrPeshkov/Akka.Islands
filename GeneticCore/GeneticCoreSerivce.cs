@@ -15,13 +15,15 @@ namespace GeneticCore
 {
     public class GeneticCoreSerivce
     {
-        private readonly GeneticAlgoritmConfig config;
-
-        public GeneticAlgorithm geneticAlgorithm { get; private set; }
+        private GeneticAlgoritmConfig Config { get; set; }
 
         private readonly IRandomization _randomization;
 
         public event Action<IEnumerable<IChromosome>> MigrationReady;
+
+        public GeneticAlgorithm geneticAlgorithm { get; private set; }
+
+        public double BestFitnessValue => geneticAlgorithm.Fitness.Evaluate(geneticAlgorithm.BestChromosome);
 
         public GeneticCoreSerivce(IRandomization randomization)
         {
@@ -30,13 +32,23 @@ namespace GeneticCore
 
         public void InitiGA(GeneticAlgoritmConfig config)
         {
-            IChromosome adamChromosome = new FloatingPointChromosome(config.MinPopulationSize, config.MaxChromosomeValue, config.ChromosomeSize, config.ChromosomeFractionDigits);
+            Config = config;
+            //IChromosome adamChromosome = new FloatingPointChromosome(config.MinChromosomeValue, config.MaxChromosomeValue, config.ChromosomeSize, config.ChromosomeFractionDigits);
+
+            float maxWidth = 1000000;
+            float maxHeight = 1000000;
+            IChromosome adamChromosome = new FloatingPointChromosome(
+                 new double[] { 0, 0, 0, 0 },
+                 new double[] { maxWidth, maxHeight, maxWidth, maxHeight },
+                 new int[] { 64, 64, 64, 64 },
+                 new int[] { 2, 2, 2, 2 });
+
             Population population = new Population(config.MinPopulationSize, config.MinPopulationSize, adamChromosome);
 
             IFitness fitness = new SimpleFitness();
             ISelection selection = new EliteSelection();
-            ICrossover crossover = new CutAndSpliceCrossover();
-            IMutation mutation = new UniformMutation();
+            ICrossover crossover = new UniformCrossover(0.1f);
+            IMutation mutation = new FlipBitMutation();
             ITermination termination = new FitnessStagnationTermination(config.StagnationGenerationCount);
 
             population.GenerationStrategy = new PerformanceGenerationStrategy();
@@ -46,17 +58,27 @@ namespace GeneticCore
                 Termination = termination
             };
 
+            geneticAlgorithm.CrossoverProbability = config.CrossoverProbability;
+            geneticAlgorithm.MutationProbability = config.MutationProbability;
+
             geneticAlgorithm.GenerationRan += OnNewGeneration;
+            geneticAlgorithm.TerminationReached += OnTermination;
+            geneticAlgorithm.Start();
+        }
+
+        private void OnTermination(object sender, EventArgs e)
+        {
+            Console.WriteLine($"FINISHED {BestFitnessValue}");
         }
 
         private void OnNewGeneration(object sender, EventArgs e)
         {
-            if (_randomization.GetFloat() <= config.MigrationProbability)
+            if (_randomization.GetFloat() <= Config.MigrationProbability)
             {
-                IEnumerable<IChromosome> migration = GetPersonForMigration(config.MigrationSize);
-                MigrationReady(migration);
+                IEnumerable<IChromosome> migration = GetPersonForMigration(Config.MigrationSize);
+                MigrationReady?.Invoke(migration);
             }
-            Console.WriteLine($"Best chromosome {geneticAlgorithm.Fitness.Evaluate(geneticAlgorithm.BestChromosome)}");
+            Console.WriteLine($"Best value {BestFitnessValue}");
         }
 
         /// <summary>
